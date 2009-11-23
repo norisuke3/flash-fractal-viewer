@@ -11,10 +11,14 @@ package {
 		 * constructor of Loader
 		 */
 		public function Loader(){
+			var canvas:Canvas;
+
 			setupObjectPrototype();
 			setupArrayPrototype();
-			
-			addChild(new Canvas());
+
+			canvas = new Canvas();
+			addChild(canvas);
+			canvas.draw();
 		}
 
 		/**

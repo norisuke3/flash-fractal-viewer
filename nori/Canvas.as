@@ -8,7 +8,8 @@ package nori{
 	import flash.geom.Matrix;
 
 	public class Canvas extends Sprite{
-		private var mMatrix:Matrix = new Matrix();
+		private var mMatrix:Matrix;
+		private var mPlotter:Plotter;
 		private const DISPLAY_SIZE:Point = new Point(250, 200);
 		private const RESOLUTION:Point = new Point(300, 250);
 
@@ -16,12 +17,18 @@ package nori{
 		 * constructor of Canvas
 		 */
 		public function Canvas(){
-			var plotter:Plotter = new Plotter(this, RESOLUTION);
-			
-			plotter.map = new ColoredMandelbrotSet();
+			mPlotter = new Plotter(this, RESOLUTION);
+			mPlotter.map = new ColoredMandelbrotSet();
+		}
 
-			setupMatrix(plotter);
-			plotter.draw();
+		/**
+		 * draw
+		 */
+		public function draw():void {
+			graphics.clear();
+			mMatrix = new Matrix();
+			setupMatrix();
+			mPlotter.draw();
 		}
 
 		/**
@@ -38,17 +45,16 @@ package nori{
 		/**
 		 * setupMatrix
 		 */
-		private function setupMatrix(plotter:Plotter):void {
+		private function setupMatrix():void {
 			mMatrix.translate(
-				-plotter.origin.x, 
-				-plotter.origin.y
+				-mPlotter.origin.x, 
+				-mPlotter.origin.y
 			);
 
 			mMatrix.scale(
-				DISPLAY_SIZE.x / plotter.size.x,
-				DISPLAY_SIZE.y / plotter.size.y
+				DISPLAY_SIZE.x / mPlotter.size.x,
+				DISPLAY_SIZE.y / mPlotter.size.y
 			);
 		}
-		
 	}
 }
