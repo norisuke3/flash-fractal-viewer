@@ -36,9 +36,9 @@ package nori{
 		 *   > size
 		 *   > rect
 		 */
-		public function set origin(p:Point):void   { mOrigin = p;	} // origin
-		public function set size(p:Point):void     { mSize = p;	} // size
-		public function set rect(r:Rectangle):void { mOrigin = r.topLeft; mSize = r.size; }
+		public function set origin(p:Point):void   { mOrigin = p; } // origin
+		public function set size(p:Point):void     { mSize = p;	  } // size
+		public function set rect(r:Rectangle):void { mOrigin = r.topLeft; mSize = r.size; } // rect
 		
 		
 		/**

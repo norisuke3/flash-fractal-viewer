@@ -18,6 +18,7 @@ package {
 
 			canvas = new Canvas();
 			addChild(canvas);
+			new CanvasController(canvas);
 			canvas.draw();
 		}
 

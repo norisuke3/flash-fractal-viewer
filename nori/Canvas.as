@@ -22,6 +22,15 @@ package nori{
 		}
 
 		/**
+		 * getter
+		 *
+		 *  > size
+		 *  > rect
+		 */
+		public function get size():Point { return DISPLAY_SIZE;	} // size
+		public function get rect():Rectangle { return new Rectangle(0, 0, size.x, size.y); } // rect
+		
+		/**
 		 * draw
 		 */
 		public function draw():void {
@@ -30,6 +39,19 @@ package nori{
 			setupMatrix();
 			mPlotter.draw();
 		}
+
+		/**
+		 * zoomRect
+		 *   setup a zooming size by specifying rectangle of display coordinate.
+		 */
+		public function zoomRect(rect:Rectangle):void {
+			var invMatrix:Matrix = mMatrix.clone();
+			invMatrix.invert();
+
+			mPlotter.origin = invMatrix.transformPoint(rect.topLeft);
+			mPlotter.size =   invMatrix.transformPoint(rect.bottomRight).subtract(mPlotter.origin);
+		}
+		
 
 		/**
 		 * plot
