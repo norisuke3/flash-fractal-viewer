@@ -5,7 +5,20 @@ package nori{
 	import flash.geom.Point;
 	
 	public class ColoredMandelbrotSet extends Map{
-	
+		// just a zero origin holder.
+		private var o:Point = new Point(0, 0);
+
+		private var mColorList:Hash = new Hash({
+			5.0  : 0x000000,
+			7.0  : 0xff9900,
+			10.0 : 0x33ffcc,
+			15.0 : 0x6666cc,
+			20.0 : 0x66ffff,
+			30.0 : 0x9966cc
+		});
+
+	    private var colorIndexes:Array = mColorList.keys.sort(Array.NUMERIC);
+
 		/**
 		 * constructor of ColoredMandelbrotSet
 		 */
@@ -21,27 +34,15 @@ package nori{
 		override public function getColor(c:Point):uint {
 			var color:uint = 0xffffff;
 			var z:Point = new Point(0, 0);
-
+			var d:Number = 0; // distance
 			
 			for(var i:int = 0; i<=40; i++){
 				z = calculateNext(z, c);
-				if(distance(z) > 5.0) break;
+				d = Point.distance(o, z);
+				if(d > 5.0) break;
 			}
 
-			if (distance(z) <= 5.0){
-				color = 0x000000;
-				
-			} else if (distance(z) <= 7.0){
-				color = 0xff9900;
-
-			} else if (distance(z) <= 10.0){
-				color = 0x33ffcc;
-
-			} else if (distance(z) <= 15.0){
-				color = 0x6666cc;
-			}
-
-			return color;
+			return mColorList[colorIndexes.find(function(n:Object):Boolean{return n >= d})]
 		}
 
 		/**
@@ -50,13 +51,6 @@ package nori{
 		private function calculateNext(z:Point, c:Point):Point {
 			return new Point(z.x * z.x - z.y * z.y + c.x,
                              2 * z.x * z.y + c.y);
-		}
-		
-		/**
-		 * distance
-		 */
-		private function distance(p:Point):Number {
-			return Math.sqrt(p.x * p.x + p.y * p.y);
 		}
     }
 }
