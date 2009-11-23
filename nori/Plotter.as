@@ -3,6 +3,7 @@
  */
 package nori{
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
 	public class Plotter {
 		private var mOrigin:Point;
@@ -20,6 +21,27 @@ package nori{
 		}
 
 		/**
+		 * getters
+		 *   > map
+		 *   > origin
+		 *   > size
+		 */
+		public function get map():Map      { return mMap;    } // map
+		public function get origin():Point { return mOrigin; } // origin
+		public function get size():Point   { return mSize;   } // size
+		
+		/**
+		 * settters
+		 *   > origin
+		 *   > size
+		 *   > rect
+		 */
+		public function set origin(p:Point):void   { mOrigin = p;	} // origin
+		public function set size(p:Point):void     { mSize = p;	} // size
+		public function set rect(r:Rectangle):void { mOrigin = r.topLeft; mSize = r.size; }
+		
+		
+		/**
 		 * set map
 		 */
 		public function set map(map:Map):void{
@@ -28,29 +50,6 @@ package nori{
 			mSize = map.size;
 		}
 
-		/**
-		 * get map
-		 */
-		public function get map():Map {
-			return mMap
-		}
-
-		/**
-		 * get origin
-		 */
-		public function get origin():Point {
-			return mOrigin;
-		}
-
-		/**
-		 * get size
-		 */
-		public function get size():Point {
-			return mSize;
-		}
-		
-		
-		
 		/**
 		 * draw
 		 */
@@ -72,6 +71,5 @@ package nori{
 				}
  			}
 		}
-		
 	}
 }

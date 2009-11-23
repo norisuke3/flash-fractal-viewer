@@ -4,6 +4,7 @@
 package nori{
 	import flash.display.*;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.geom.Matrix;
 
 	public class Canvas extends Sprite{
