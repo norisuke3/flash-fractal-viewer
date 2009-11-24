@@ -44,7 +44,7 @@ package nori{
 
 		/**
 		 * zoomRect
-		 *   setup a zooming size by specifying rectangle of display coordinate.
+		 *   setup a zooming size by specifying rectangle in the display coordinate.
 		 */
 		public function zoomRect(rect:Rectangle):void {
 			var invMatrix:Matrix = mMatrix.clone();
