@@ -7,7 +7,7 @@ package nori{
 	import flash.geom.Rectangle;
 	import flash.geom.Matrix;
 
-	public class Canvas extends Sprite{
+	public class Canvas extends Shape{
 		private var mMatrix:Matrix;
 		private var mPlotter:Plotter;
 		private const DISPLAY_SIZE:Point = new Point(250, 200);
@@ -19,8 +19,6 @@ package nori{
 		public function Canvas(){
 			mPlotter = new Plotter(this, RESOLUTION);
 			mPlotter.map = new MandelbrotSet();
-			
-			this.mouseEnabled = false;
 		}
 
 		/**

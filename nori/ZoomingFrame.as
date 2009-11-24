@@ -30,7 +30,7 @@ package nori {
 			frame.width = 0;
 			frame.height = 0;
 
-			mTarget.addChild(frame);
+			mTarget.stage.addChild(frame);
 			mTarget.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizeFrame);
 		}
 
@@ -38,7 +38,7 @@ package nori {
 		 * hideFrame
 		 */
 		private function hideFrame(e:MouseEvent):void {
-			mTarget.removeChild(frame);
+			mTarget.stage.removeChild(frame);
 			
 			mTarget.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizeFrame);			
 		}
