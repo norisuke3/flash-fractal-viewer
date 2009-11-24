@@ -19,6 +19,8 @@ package nori{
 		public function Canvas(){
 			mPlotter = new Plotter(this, RESOLUTION);
 			mPlotter.map = new MandelbrotSet();
+			
+			this.mouseEnabled = false;
 		}
 
 		/**
