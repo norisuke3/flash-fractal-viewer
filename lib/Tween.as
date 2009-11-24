@@ -21,6 +21,7 @@ package lib {
 		public var duration:Number;
 		public var useSeconds:Boolean = false;
 		public var edging:Number = 0;
+		public var callBackOnMotionFinished:Function = null;
 
 		private var step:Number;
 		private var maxCount:Number;
@@ -55,6 +56,10 @@ package lib {
 			                ( progress + edging/(100*Math.PI) * Math.sin( Math.PI * progress ) ) + begin;
 
 			if ( counter++ >= maxCount ) {
+				if (callBackOnMotionFinished != null){
+					callBackOnMotionFinished();
+				}
+
 				mTarget.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			}
 		}
