@@ -1,10 +1,10 @@
 /**
- * A class of ColoredMandelbrotSet
+ * A class of MandelbrotSet
  */
 package nori{
 	import flash.geom.Point;
 	
-	public class ColoredMandelbrotSet extends Map{
+	public class MandelbrotSet extends Map{
 		// just a zero origin holder.
 		private var o:Point = new Point(0, 0);
 
@@ -20,9 +20,9 @@ package nori{
 	    private var colorIndexes:Array = mColorList.keys.sort(Array.NUMERIC);
 
 		/**
-		 * constructor of ColoredMandelbrotSet
+		 * constructor of MandelbrotSet
 		 */
-		public function ColoredMandelbrotSet(){
+		public function MandelbrotSet(){
 			super();
 			this.origin = new Point(-2.2, -1.5);
 			this.size = new Point(3, 3);

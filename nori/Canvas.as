@@ -18,7 +18,7 @@ package nori{
 		 */
 		public function Canvas(){
 			mPlotter = new Plotter(this, RESOLUTION);
-			mPlotter.map = new ColoredMandelbrotSet();
+			mPlotter.map = new MandelbrotSet();
 		}
 
 		/**
