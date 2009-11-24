@@ -36,7 +36,7 @@ package nori{
 		 * mouseUpHandler
 		 */
 		private function mouseUpHandler(e:MouseEvent):void {
-			if(mouseDownInside){
+			if(mouseDownInside && begin.x != clickedPoint.x && begin.y != clickedPoint.y){
 				var rect:Rectangle = new Rectangle();
 
 				rect.left   = Math.min(begin.x, clickedPoint.x);
