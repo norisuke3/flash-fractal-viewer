@@ -17,6 +17,8 @@ package nori{
 		 */
 		public function CanvasController(canvas:Canvas){
 			mCanvas = canvas;
+
+			new ZoomingFrame(mCanvas);
 			
 			mCanvas.stage.addEventListener(MouseEvent.MOUSE_DOWN, checkOnCanvas);
 			mCanvas.stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
