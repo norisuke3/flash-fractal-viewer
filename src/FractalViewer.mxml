@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" applicationComplete="init()">
+	<mx:HBox width="600" height="500" id="frame">
+	</mx:HBox>
+
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.SWFLoader;
+
+			private var ld:BootStrap = new BootStrap();
+			private var sld:SWFLoader = new SWFLoader();
+			private function init():void{
+				sld.source = ld;
+				frame.addChild(sld);				
+			}
+		]]>
+	</mx:Script>	
+</mx:Application>

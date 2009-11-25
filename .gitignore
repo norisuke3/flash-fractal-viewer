@@ -1,0 +1,7 @@
+*.swf
+.actionScriptProperties
+.flexProperties
+.project
+.settings
+bin-debug/
+html-template
