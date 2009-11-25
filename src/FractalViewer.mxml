@@ -78,7 +78,7 @@
 					mapType.selectedItem.data = new JuliaSet(constant_x.value, constant_y.value);
 				}
 				
-				mapRenew();5
+				mapRenew();
 			}
 			
 			private function onMapTypeSelected():void{
