@@ -2,8 +2,9 @@
  * A class of ZoomingFrame
  */
 package nori {
-	import flash.events.MouseEvent;
 	import flash.display.Shape;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 
 	public class ZoomingFrame{
@@ -17,8 +18,14 @@ package nori {
 			mTarget = target;
 			frame = createFrame(0xff00000);
 
+			mTarget.addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+		
+		private function init(e:Event):void{
+			mTarget.removeEventListener(Event.ADDED_TO_STAGE, init);
+			
 			mTarget.stage.addEventListener(MouseEvent.MOUSE_DOWN, showFrame);
-			mTarget.stage.addEventListener(MouseEvent.MOUSE_UP, hideFrame);
+			mTarget.stage.addEventListener(MouseEvent.MOUSE_UP, hideFrame);	
 		}
 
 		/**
@@ -30,7 +37,7 @@ package nori {
 			frame.width = 0;
 			frame.height = 0;
 
-			mTarget.stage.addChild(frame);
+			mTarget.addChild(frame);
 			mTarget.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizeFrame);
 		}
 
@@ -38,7 +45,7 @@ package nori {
 		 * hideFrame
 		 */
 		private function hideFrame(e:MouseEvent):void {
-			mTarget.stage.removeChild(frame);
+			mTarget.removeChild(frame);
 			
 			mTarget.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizeFrame);			
 		}

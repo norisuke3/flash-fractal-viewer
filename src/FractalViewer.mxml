@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" applicationComplete="init()">
+	<mx:Panel width="700" height="500" layout="absolute" title="Fractal Viewer">
+		<mx:HBox id="frame" width="502" height="403" x="10" y="47">
+		</mx:HBox>
+		<mx:HBox width="502" x="10" y="10" borderColor="#FFFFFF">
+			<mx:Label text="Type" fontSize="13"/>
+			<mx:ComboBox id='mapType' dataProvider="{mapTypes}" change="onMapTypeSelected()"></mx:ComboBox>
+			<mx:Spacer width="50%"/>
+			<mx:Label id="label_cx" text="Constant x:" visible="false"/>
+			<mx:NumericStepper id='constant_x' value="0.2" stepSize="0.05" visible="false"/>
+			<mx:Label id="label_cy" text="y:" visible="false"/>
+			<mx:NumericStepper id='constant_y' value="0.5" stepSize="0.05" visible="false"/>
+			<mx:Spacer width="100%"/>
+			<mx:Button label="Reload" click="reload()"/>
+		</mx:HBox>
+		<mx:Label x="520" y="86" text="origin x:" textAlign="right" fontWeight="bold"/>
+		<mx:Label x="521" y="112" text="origin y:" textAlign="right" fontWeight="bold"/>
+		<mx:Label x="534" y="138" text="width:" textAlign="right" fontWeight="bold"/>
+		<mx:Label x="527" y="164" text="height:" textAlign="right" fontWeight="bold"/>
+		<mx:Label x="580" y="86" text="{origin_x}" width="77"/>
+		<mx:Label x="580" y="112" text="{origin_y}" width="77"/>
+		<mx:Label x="580" y="138" text="{size_x}" width="77"/>
+		<mx:Label x="580" y="164" text="{size_y}" width="77"/>
+	</mx:Panel>
+	<mx:Label text="Usage : Click and drag to zoom" width="659" color="#FFFFFF" fontSize="17" fontFamily="Arial" fontWeight="normal"/>
+
+	<mx:Script>
+		<![CDATA[
+			import nori.JuliaSet;
+			import nori.MandelbrotSet;
+			import nori.Canvas;
+			import mx.controls.SWFLoader;
+			import flash.geom.Point;
+
+			private var bs:BootStrap = new BootStrap();
+			private var sld:SWFLoader = new SWFLoader();
+			private var canvas:Canvas = bs.canvas;
+			private var constantControllers:Array;
+			
+
+			[Bindable]
+			private var mapTypes:Array = [
+				{ label : "Mandelblot Set", data : new MandelbrotSet() }, 
+				{ label : "Julia Set"     , data : new JuliaSet() }
+			];
+			
+			[Bindable]
+			private var origin_x:Number = -2.2;
+			
+			[Bindable]
+			private var origin_y:Number = -1.5;
+			
+			[Bindable]
+			private var size_x:Number = 3.0;
+			
+			[Bindable]
+			private var size_y:Number = 3.0;
+			
+			private function init():void{
+				constantControllers = [ label_cx, label_cy, constant_x, constant_y ]
+				
+				canvas.onDrawBegin = function(origin:Point, size:Point):void{
+					origin_x = origin.x;
+					origin_y = origin.y;
+					size_x = size.x;
+					size_y = size.y;
+				}
+				
+				// canvas.onDrawFinished = function():void{}
+				
+				sld.source = bs;
+				frame.addChild(sld);
+			}
+			
+			private function reload():void{
+				if (mapType.selectedItem.label == "Julia Set"){
+					mapType.selectedItem.data = new JuliaSet(constant_x.value, constant_y.value);
+				}
+				
+				mapRenew();5
+			}
+			
+			private function onMapTypeSelected():void{
+				var visible:Boolean = true;
+				if (mapType.selectedItem.label == "Mandelblot Set"){
+					visible = false;
+				}
+				constantControllers.forEach(function(o:*, index:int, array:Array):void{o.visible = visible;});
+				
+				mapRenew();
+			}
+			
+			private function mapRenew():void{
+				canvas.map = mapType.selectedItem.data;
+				canvas.draw();
+			}
+			
+		]]>
+	</mx:Script>	
+</mx:Application>

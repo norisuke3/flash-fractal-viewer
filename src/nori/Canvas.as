@@ -7,11 +7,14 @@ package nori{
 	import flash.geom.Rectangle;
 	import flash.geom.Matrix;
 
-	public class Canvas extends Shape{
+	public class Canvas extends Sprite{
 		private var mMatrix:Matrix;
 		private var mPlotter:Plotter;
-		private const DISPLAY_SIZE:Point = new Point(250, 200);
-		private const RESOLUTION:Point = new Point(300, 250);
+		private const DISPLAY_SIZE:Point = new Point(500, 400);
+		private const RESOLUTION:Point = new Point(300, 200);
+		private var DotSize:Point  = new Point(DISPLAY_SIZE.x / RESOLUTION.x, DISPLAY_SIZE.y / RESOLUTION.y);
+		public var onDrawBegin:Function = null;     // call back function on draw beging
+		public var onDrawFinished:Function = null;  // call back function on draw finishxed
 
 		/**
 		 * constructor of Canvas
@@ -19,6 +22,8 @@ package nori{
 		public function Canvas(){
 			mPlotter = new Plotter(this, RESOLUTION);
 			mPlotter.map = new MandelbrotSet();
+			
+			this.mouseEnabled = false;
 		}
 
 		/**
@@ -31,13 +36,25 @@ package nori{
 		public function get rect():Rectangle { return new Rectangle(0, 0, size.x, size.y); } // rect
 		
 		/**
+		 * set map
+		 */
+		public function set map(map:Map):void {
+			mPlotter.map = map;
+		}
+		
+		/**
 		 * draw
 		 */
 		public function draw():void {
 			graphics.clear();
 			mMatrix = new Matrix();
 			setupMatrix();
+			
+			if (onDrawBegin != null) onDrawBegin(mPlotter.origin, mPlotter.size);
+			
 			mPlotter.draw();
+			
+			if (onDrawFinished != null) onDrawFinished();
 		}
 
 		/**
@@ -60,8 +77,9 @@ package nori{
 			point = mMatrix.transformPoint(point);
 
 			graphics.lineStyle(1, color);
-			graphics.moveTo(point.x, point.y);
-			graphics.lineTo(point.x + 0.1, point.y + 0.1);
+			graphics.beginFill(color);
+			graphics.drawRect(point.x, point.y, DotSize.x, DotSize.y);
+			graphics.endFill();
 		}
 		
 		/**

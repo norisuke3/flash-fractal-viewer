@@ -1,26 +1,33 @@
 /**
- * A class of Loader
+ * A class of BootStrap
  */
 package {
 	import nori.*;
 	import flash.display.Sprite;
 
-	public class Loader extends Sprite{
+	public class BootStrap extends Sprite{
+		private var mCanvas:Canvas;
 	
 		/**
-		 * constructor of Loader
+		 * constructor of BootStrap
 		 */
-		public function Loader(){
-			var canvas:Canvas;
-
+		public function BootStrap(){
 			setupObjectPrototype();
 			setupArrayPrototype();
 
-			canvas = new Canvas();
-			addChild(canvas);
-			new CanvasController(canvas);
-			canvas.draw();
+			mCanvas = new Canvas();
+			addChild(mCanvas);
+			new CanvasController(mCanvas);
+			mCanvas.draw();
 		}
+
+		/**
+		 * get canvas
+		 */
+		public function get canvas():Canvas {
+			return mCanvas;
+		}
+		
 
 		/**
 		 * setupObjectPrototype
