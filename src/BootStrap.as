@@ -6,21 +6,28 @@ package {
 	import flash.display.Sprite;
 
 	public class BootStrap extends Sprite{
+		private var mCanvas:Canvas;
 	
 		/**
 		 * constructor of BootStrap
 		 */
 		public function BootStrap(){
-			var canvas:Canvas;
-
 			setupObjectPrototype();
 			setupArrayPrototype();
 
-			canvas = new Canvas();
-			addChild(canvas);
-			new CanvasController(canvas);
-			canvas.draw();
+			mCanvas = new Canvas();
+			addChild(mCanvas);
+			new CanvasController(mCanvas);
+			mCanvas.draw();
 		}
+
+		/**
+		 * get canvas
+		 */
+		public function get canvas():Canvas {
+			return mCanvas;
+		}
+		
 
 		/**
 		 * setupObjectPrototype
